@@ -7,6 +7,35 @@
     <title>WebGL - ex1</title>
 </head>
 <body>
+    <script id="vertexShader" type="notjs">
+          // an attribute will receive data from a buffer
+          attribute vec2 a_position;
+          uniform vec2 u_resolution;
 
+          // all shaders have a main function
+          void main() {
+
+            vec2 zeroToOne = a_position / u_resolution;
+            vec2 zeroToTwo = zeroToOne * 2.0;   // since you can't do 1 - 1 in clipspace
+            vec2 clipspace = zeroToTwo - 1.0;
+
+            // gl_Position is a special variable a vertex shader
+            // is responsible for setting
+            gl_Position = vec4(clipspace * vec2(1, -1), 0, 1);
+          }
+    </script>
+    <script id="fragmentShader" type="notjs">
+          // fragment shaders don't have a default precision so we need
+          // to pick one. mediump is a good default
+          precision mediump float;
+
+          uniform vec4 u_color;
+
+          void main() {
+            // gl_FragColor is a special variable a fragment shader
+            // is responsible for setting
+            gl_FragColor = u_color; // return color
+          }
+    </script>
 </body>
 </html>

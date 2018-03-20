@@ -32,26 +32,24 @@ addEventListener("load", function () {
 
         gl.useProgram(program);
 
-        //MATRIX
-        let translation = [0, 0];
-        let angleInRadians = 0;
-        let scale = [1, 1];
-        let matrix = m3.projection(gl.canvas.clientWidth, gl.canvas.clientHeight);
-        matrix = m3.translate(matrix, translation[0], translation[1]);
-        matrix = m3.rotate(matrix, angleInRadians);
-        matrix = m3.scale(matrix, scale[0], scale[1]);
-
-        //set the matrix
-        gl.uniformMatrix3fv(matrixLocation, false, matrix);
-
-
         //Draw
-        for (let i = 0; i < 200; i++) {
+        for (let i = 0; i < 1000; i++) {
+            //MATRIX
+            let translation = [600, 0];
+            let angleInRadians = Math.random() * Math.PI * 180/2 ;
+            let scale = [1, 1];
+            let matrix = m3.projection(gl.canvas.clientWidth, gl.canvas.clientHeight);
+            matrix = m3.translate(matrix, translation[0], translation[1]);
+            matrix = m3.rotate(matrix, angleInRadians);
+            matrix = m3.scale(matrix, scale[0], scale[1]);
+            //set the matrix
+            gl.uniformMatrix3fv(matrixLocation, false, matrix);
+
             setColor();
             setGeometry();
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         }
-
+        setTimeout(draw, 1);
     }
 
     function setGeometry(){
@@ -80,9 +78,9 @@ addEventListener("load", function () {
         gl.bufferData(
             gl.ARRAY_BUFFER,
             new Float32Array([
-                Math.random(), Math.random(), Math.random(), 1,
-                Math.random(), Math.random(), Math.random(), 1,
-                Math.random(), Math.random(), Math.random(), 1,
+                Math.random(), Math.random(), Math.random(), 2,
+                Math.random(), Math.random(), Math.random(), 2,
+                Math.random(), Math.random(), Math.random(), 2,
             ]),
             gl.STATIC_DRAW
         );

@@ -31,7 +31,6 @@
                     let positionBuffer = gl.createBuffer();
                     gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
-
                 //RENDERING
                 //
                     resize(gl.canvas);
@@ -50,7 +49,7 @@
                     gl.vertexAttribPointer(positionAttributeLocation, 2, gl.FLOAT, false, 0, 0);
                     gl.uniform2f(resolutionUniformLocation, gl.canvas.width, gl.canvas.height);
                     //Draw
-                    drawRandomShapes(gl, 10, colorUniformLocation, setRectangle);
+                    drawRandomTriangle(gl, 15, colorUniformLocation);
             }
             else{
                 console.log("WebGL context couldn't be initialized.");
@@ -64,17 +63,20 @@
 
     //  function to draw random squares on screen
     //
-        function drawRandomShapes(gl, number, colorUniformLocation, setShapeFunction){
+        function drawRandomSquare(gl, number, colorUniformLocation){
             for (let i = 0; i < number; i++) {
-                setShapeFunction(gl, randomInt(300), randomInt(300), randomInt(300), randomInt(300));
+                setRectangle(gl, randomInt(300), randomInt(300), randomInt(300), randomInt(300));
                 gl.uniform4f(colorUniformLocation, Math.random(), Math.random(), Math.random(), 1);
                 gl.drawArrays(gl.TRIANGLES, 0, 6);
             }
         }
 
+    //  function to return an int between 0 and range
+    //
         function randomInt(range) {
             return Math.floor(Math.random() * range);
         }
+
 
     //  function to set one rectangle
     //
@@ -90,6 +92,32 @@
                 x1, y2,
                 x2, y1,
                 x2, y2,
+            ]), gl.STATIC_DRAW);
+        }
+
+    //    function to draw random triangles on screen
+    //
+        function drawRandomTriangle(gl, number, colorUniformLocation){
+            for (let i = 0; i < number; i++) {
+                setTriangle(gl, randomInt(300), randomInt(300), randomInt(150));
+                gl.uniform4f(colorUniformLocation, Math.random(), Math.random(), Math.random(), 1);
+                gl.drawArrays(gl.TRIANGLES, 0, 3);
+            }
+        }
+
+    // function to set one triangle
+    //
+        function setTriangle(gl, x, y, width){
+            const x1 = x - width;
+            const y1 = y + width/2;
+            const x2 = x + width;
+            const y2 = y + width/2;
+            const x3 = x;
+            const y3 = y - width;
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+                x1, y1,
+                x2, y2,
+                x3, y3,
             ]), gl.STATIC_DRAW);
         }
 

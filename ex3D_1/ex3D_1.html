@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="ex3D_1.css" rel="stylesheet" type="text/css">
+    <script src="ex3D_1.js" type="text/javascript" rel="script"></script>
+    <title>WebGL - ex3D_1</title>
+</head>
+    <body>
+        <script id="vertexShader" type="notjs">
+
+                  attribute vec4 a_position;
+                  attribute vec4 a_color;
+
+                  uniform mat4 u_matrix;
+
+                  varying vec4 v_color;
+
+                  // all shaders have a main function
+                  void main() {
+                    gl_Position = u_matrix * a_position ;
+                    v_color = a_color;
+                  }
+            </script>
+        <script id="fragmentShader" type="notjs">
+                  // fragment shaders don't have a default precision so we need
+                  // to pick one. mediump is a good default
+                  precision mediump float;
+                    varying vec4 v_color;
+
+                  void main() {
+                    gl_FragColor = v_color;
+                  }
+            </script>
+    </body>
+    <script src="http://twgljs.org/dist/4.x/twgl-full.min.js"></script>
+    <script src="https://webglfundamentals.org/webgl/resources/webgl-utils.js"></script>
+    <script src="https://webglfundamentals.org/webgl/resources/webgl-lessons-ui.js"></script>
+    <!-- using m3 for 2D or m4 for 3D-->
+    <!-- in this case, 3D functions are in the .js file as a simpler version-->
+    <script src="https://webglfundamentals.org/webgl/resources/m3.js"></script>
+</html>

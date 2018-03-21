@@ -20,6 +20,7 @@ addEventListener("load", function () {
     const matrixLocation = gl.getUniformLocation(program, "u_matrix");
 
     gl.enable(gl.DEPTH_TEST);
+    gl.enable(gl.CULL_FACE);
     draw();
 
 //  DIVIDING FUNCTIONS
@@ -52,7 +53,7 @@ addEventListener("load", function () {
             setGeometry();
             gl.drawArrays(gl.TRIANGLES, 0, 3*4);
         }
-        //setTimeout(draw, 100);
+        setTimeout(draw, 100);
     }
 
     function setGeometry(){
@@ -149,16 +150,19 @@ addEventListener("load", function () {
         gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
             x1, y1, z1,
             x2, y2, z2,
-            x3, y3, z3,//
+            x3, y3, z3,
+            //-------
             x3, y3, z3,
             x2, y2, z2,
             x4, y4, z4,
-            x1, y1, z1,//
-            x4, y4, z4,
-            x3, y3, z3,
-            x2, y2, z2,//
+            //-------
             x4, y4, z4,
             x1, y1, z1,
+            x3, y3, z3,
+            //-------
+            x1, y1, z1,
+            x4, y4, z4,
+            x2, y2, z2,
         ]), gl.STATIC_DRAW);
     }
 

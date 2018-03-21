@@ -33,7 +33,7 @@ addEventListener("load", function () {
         gl.useProgram(program);
 
         //Draw
-        for (let i = 0; i < 1000; i++) {
+        for (let i = 0; i < 200000; i++) {
             //MATRIX
             let translation = [600, 0];
             let angleInRadians = Math.random() * Math.PI * 180/2 ;
@@ -49,7 +49,7 @@ addEventListener("load", function () {
             setGeometry();
             gl.drawArrays(gl.TRIANGLES, 0, 3);
         }
-        setTimeout(draw, 1);
+        //setTimeout(draw, 1);
     }
 
     function setGeometry(){
@@ -73,14 +73,14 @@ addEventListener("load", function () {
         let colorBuffer = gl.createBuffer();
         gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
 
-        gl.vertexAttribPointer(colorLocation, 4, gl.FLOAT, false, 0,0);
+        gl.vertexAttribPointer(colorLocation, 3, gl.UNSIGNED_BYTE, true, 0,0);
 
         gl.bufferData(
             gl.ARRAY_BUFFER,
             new Float32Array([
-                Math.random(), Math.random(), Math.random(), 2,
-                Math.random(), Math.random(), Math.random(), 2,
-                Math.random(), Math.random(), Math.random(), 2,
+                Math.random() * 256, Math.random() * 256, Math.random() * 256,
+                Math.random() * 256, Math.random() * 256, Math.random() * 256,
+                Math.random() * 256, Math.random() * 256, Math.random() * 256,
             ]),
             gl.STATIC_DRAW
         );
